@@ -247,7 +247,7 @@
 
 <script>
   emailjs.init({
-    publicKey: "0lvrvXcTDwGBHcrMF",
+    publicKey: "public_key",
   });
 
   $("#contactForm").on("submit", function (e) {
@@ -261,7 +261,7 @@
     };
 
     emailjs
-      .send("service_v88dyt6", "template_6oird8d", params)
+      .send("service_id", "template_id", params)
       .then(function () {
         $("#status").html(`
             <div class="alert alert-success">
