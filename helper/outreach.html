@@ -1,0 +1,340 @@
+<style>
+    /* =========================
+       SECTION
+    ========================== */
+
+    .outreach-section {
+      padding: 70px 7%;
+      background: linear-gradient(135deg, #f8fbff, #eef3ff);
+    }
+
+    .outreach-header {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .outreach-header .small-title {
+      display: inline-block;
+      padding: 7px 18px;
+      border-radius: 30px;
+      background: rgba(57, 106, 252, 0.1);
+      color: #396afc;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .outreach-header h2 {
+      margin: 0;
+      font-size: 38px;
+      font-weight: 700;
+      color: #172554;
+    }
+
+    .outreach-header h2 span {
+      color: #396afc;
+    }
+
+    .outreach-header p {
+      max-width: 750px;
+      margin: 15px auto 0;
+      color: #64748b;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+
+    /* =========================
+       CARDS GRID
+    ========================== */
+
+    .outreach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+
+    /* =========================
+       CARD
+    ========================== */
+
+    .outreach-card {
+      position: relative;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(57, 106, 252, 0.12);
+      border-radius: 22px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+    }
+
+    .outreach-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(57, 106, 252, 0.35);
+      box-shadow:
+        0 20px 45px rgba(57, 106, 252, 0.15),
+        0 0 25px rgba(57, 106, 252, 0.08);
+    }
+
+
+    /* Decorative glow */
+
+    .outreach-card::before {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      right: -60px;
+      top: -60px;
+      border-radius: 50%;
+      background: rgba(57, 106, 252, 0.08);
+      transition: 0.4s ease;
+    }
+
+    .outreach-card:hover::before {
+      transform: scale(1.5);
+      background: rgba(57, 106, 252, 0.13);
+    }
+
+
+    /* =========================
+       ICON
+    ========================== */
+
+    .outreach-icon {
+      width: 65px;
+      height: 65px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+
+      background: linear-gradient(
+        135deg,
+        #396afc,
+        #2948ff
+      );
+
+      color: white;
+      font-size: 28px;
+
+      margin-bottom: 22px;
+
+      box-shadow:
+        0 8px 20px rgba(57, 106, 252, 0.3);
+
+      transition: 0.4s ease;
+    }
+
+    .outreach-card:hover .outreach-icon {
+      transform: rotate(-5deg) scale(1.08);
+
+      box-shadow:
+        0 0 15px rgba(57, 106, 252, 0.5),
+        0 0 35px rgba(57, 106, 252, 0.25);
+    }
+
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    .outreach-card h3 {
+      margin: 0 0 12px;
+      font-size: 20px;
+      color: #172554;
+    }
+
+    .outreach-card p {
+      margin: 0;
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .outreach-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      margin-top: 20px;
+
+      color: #396afc;
+      font-size: 14px;
+      font-weight: 600;
+
+      text-decoration: none;
+
+      transition: 0.3s ease;
+    }
+
+    .outreach-btn i {
+      transition: 0.3s ease;
+    }
+
+    .outreach-btn:hover {
+      color: #2948ff;
+    }
+
+    .outreach-btn:hover i {
+      transform: translateX(6px);
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 992px) {
+
+      .outreach-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .outreach-header h2 {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .outreach-section {
+        padding: 50px 20px;
+      }
+
+      .outreach-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .outreach-header h2 {
+        font-size: 28px;
+      }
+    }
+
+  </style>
+</style>
+<section class="outreach-section">
+
+  <div class="outreach-header">
+
+    <div class="small-title">
+      Community Engagement
+    </div>
+
+    <h2>
+      Outreach <span>Activities</span>
+    </h2>
+
+    <p>
+      The Transportation Engineering Division actively engages with
+      students, professionals, industries and the community through
+      various academic, technical and social outreach initiatives.
+    </p>
+
+  </div>
+
+
+  <div class="outreach-grid" id="outreachContainer">
+    <!-- Excel data will be loaded here -->
+</div>
+
+</section>
+
+<script>
+
+$(document).ready(function () {
+
+    // Excel file path
+    const excelFile = "excels/outreach_activity.xlsx";
+
+    // Read Excel file
+    $.ajax({
+        url: excelFile,
+        method: "GET",
+        xhrFields: {
+            responseType: "arraybuffer"
+        },
+
+        success: function (data) {
+
+            // Convert Excel binary data
+            const workbook = XLSX.read(data, {
+                type: "array"
+            });
+
+            // Get first sheet
+            const sheetName = workbook.SheetNames[0];
+
+            const worksheet = workbook.Sheets[sheetName];
+
+            // Convert Excel sheet to JSON
+            const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+            // Clear existing content
+            $("#outreachContainer").empty();
+
+            // Loop through Excel rows
+            $.each(jsonData, function (index, item) {
+
+                const title = item.Title || "";
+                const description = item.Description || "";
+                const icon = item.Icon || "bi-megaphone-fill";
+                const link = item.Link || "#";
+
+                // Create card
+                const card = `
+
+                    <div class="outreach-card">
+
+                        <div class="outreach-icon">
+                            <i class="bi ${icon}"></i>
+                        </div>
+
+                        <h3>${title}</h3>
+
+                        <p>
+                            ${description}
+                        </p>
+
+                        <a href="${link}" class="outreach-btn" target="_blank">
+                            Read More
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                `;
+
+                // Append card
+                $("#outreachContainer").append(card);
+
+            });
+
+        },
+
+        error: function (error) {
+
+            console.error(
+                "Error loading Excel file:",
+                error
+            );
+
+        }
+
+    });
+
+});
+
+</script>
+

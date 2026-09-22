@@ -1,0 +1,1954 @@
+<!-- ================= MAIN TABS ================= -->
+<style>
+  .img-hover-box {
+    position: relative;
+    width: 145px;
+    height: 170px;
+    margin: auto;
+  }
+
+  .img-hover-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid orange;
+    border-radius: 6px;
+  }
+
+  .hover-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    transition: 0.3s;
+    padding: 5px;
+  }
+
+  .img-hover-box:hover .hover-text {
+    opacity: 1;
+  }
+  .batch-btn {
+    transition: all 0.3s ease;
+    margin: 5px;
+  }
+
+  .batch-btn:hover {
+    background-color: rgba(22, 180, 219, 0.671) !important;
+    color: #0a0404 !important;
+    border-color: rgb(194, 3, 21) !important;
+  }
+  .batch-btn.btn-info {
+    background-color: #dc3545 !important; /* Red when selected */
+    border-color: #050505 !important;
+    color: white !important;
+  }
+
+  #aluminirsPane .rs-timeline {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(110px, 1fr));
+    gap: 16px;
+    margin: 24px 0 10px;
+  }
+
+  #aluminirsPane .rs-timeline::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    right: 8%;
+    height: 2px;
+    background: #0dcaf0;
+    opacity: 0.35;
+    transform: translateY(-50%);
+  }
+
+  #aluminirsPane .rs-timeline .col {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  #aluminirsPane .rs-timeline .batch-btn {
+    width: 100%;
+    background: #fff;
+  }
+
+  #aluminirsPane .rs-alumni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 420px);
+    justify-content: center;
+    gap: 20px;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  #aluminirsPane .rs-alumni-card {
+    width: 420px;
+    height: 180px;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    border-radius: 8px;
+    overflow: hidden;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  #currentrsPane #contentCRS .card {
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  #currentrsPane #contentCRS .card:hover,
+  #aluminirsPane .rs-alumni-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.18) !important;
+    z-index: 2;
+  }
+
+  #aluminirsPane .rs-alumni-photo {
+    width: 135px;
+    height: 100%;
+    flex: 0 0 135px;
+    object-fit: cover;
+    background: #f5f7f8;
+  }
+
+  #aluminirsPane .rs-alumni-name {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  #aluminirsPane .rs-alumni-year {
+    align-self: flex-start;
+    margin-bottom: 12px;
+  }
+
+  #aluminirsPane .rs-alumni-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .rs-details-list dt,
+  .rs-details-list dd {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  /* ================= M.TECH ALUMNI ================= */
+
+  #aluminimPane .mtech-alumni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 420px);
+    justify-content: center;
+    gap: 20px;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+
+  #aluminimPane .mtech-alumni-card {
+    width: 420px;
+    height: 180px;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: 0.25s;
+  }
+
+  #aluminimPane .mtech-alumni-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.18);
+  }
+
+  #aluminimPane .mtech-alumni-photo {
+    width: 135px;
+    flex: 0 0 135px;
+    object-fit: cover;
+    background: #f5f7f8;
+  }
+
+  #aluminimPane .mtech-alumni-name {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  /* ================= ROLL OF HONOURS TIMELINE ================= */
+
+  .honours-list {
+    max-width: 900px;
+    margin: 30px auto;
+    position: relative;
+  }
+
+  .honours-list::before {
+    content: "";
+    position: absolute;
+    left: 70px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, #0d6efd, #17a2b8, #198754);
+    border-radius: 10px;
+  }
+
+  .honour-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    margin: 18px 0;
+    padding: 18px 25px;
+    margin-left: 100px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+  }
+
+  .honour-item:hover {
+    transform: translateX(8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .honour-item::before {
+    content: "🏆";
+    position: absolute;
+    left: -52px;
+    width: 42px;
+    height: 42px;
+    background: #fff;
+    border: 4px solid #0d6efd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+  }
+
+  .honour-year {
+    min-width: 90px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #0d6efd;
+  }
+
+  .honour-divider {
+    width: 2px;
+    height: 45px;
+    background: #dee2e6;
+    margin: 0 20px;
+  }
+
+  .honour-name {
+    flex: 1;
+    font-size: 20px;
+    font-weight: 600;
+    color: #343a40;
+  }
+
+  .honour-rank {
+    font-size: 14px;
+    color: #6c757d;
+    margin-top: 5px;
+  }
+
+  /* ================= MEDALS & AWARDS ================= */
+
+  .medals-list {
+    max-width: 1000px;
+    margin: 30px auto;
+  }
+
+  .medal-item {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background: #fff;
+    border-left: 6px solid #ffc107;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .medal-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  }
+
+  .medal-item::after {
+    content: "🏅";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 55px;
+    opacity: 0.08;
+  }
+
+  .medal-year {
+    min-width: 90px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #0d6efd;
+  }
+
+  .medal-divider {
+    width: 2px;
+    align-self: stretch;
+    background: #dee2e6;
+  }
+
+  .medal-details {
+    flex: 1;
+  }
+
+  .medal-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #212529;
+  }
+
+  .medal-recipient {
+    margin-top: 8px;
+    font-size: 17px;
+    color: #495057;
+  }
+
+  .medal-recipient span {
+    font-weight: 600;
+    color: #198754;
+  }
+  .year-buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    max-width: 900px;
+    margin: 20px auto;
+  }
+
+  .year-buttons .batch-btn {
+    margin: 0;
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.25s ease;
+  }
+
+  .year-buttons .batch-btn:hover {
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 768px) {
+    .year-buttons {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .year-buttons {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .medal-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .medal-divider {
+      display: none;
+    }
+
+    .medal-year {
+      margin-bottom: 8px;
+    }
+
+    .medal-item::after {
+      display: none;
+    }
+  }
+  @media (max-width: 768px) {
+    #aluminirsPane .rs-timeline {
+      grid-template-columns: repeat(2, minmax(120px, 1fr));
+    }
+
+    #aluminirsPane .rs-timeline::before {
+      display: none;
+    }
+
+    #aluminirsPane .rs-alumni-grid {
+      grid-template-columns: minmax(260px, 1fr);
+      max-width: 420px;
+    }
+
+    #aluminirsPane .rs-alumni-card {
+      width: 100%;
+      height: 170px;
+    }
+
+    #aluminirsPane .rs-alumni-photo {
+      width: 120px;
+      flex-basis: 120px;
+    }
+    .honours-list::before {
+      left: 25px;
+    }
+
+    .honour-item {
+      margin-left: 50px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .honour-item::before {
+      left: -35px;
+    }
+
+    .honour-divider {
+      display: none;
+    }
+
+    .honour-year {
+      margin-bottom: 10px;
+    }
+  }
+
+  /* =========================================
+   POPUP / MODAL DESIGN
+========================================= */
+
+  /* Modal popup animation */
+  #abstractModal .modal-dialog {
+    transform: scale(0.6) translateY(-30px);
+    opacity: 0;
+    transition: none;
+  }
+
+  /* When modal opens */
+  #abstractModal.show .modal-dialog {
+    animation: modalPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  /* =========================================
+   POP ANIMATION
+========================================= */
+
+  @keyframes modalPop {
+    0% {
+      transform: scale(0.5) translateY(-40px);
+      opacity: 0;
+    }
+
+    33% {
+      transform: scale(1.05) translateY(0);
+      opacity: 1;
+    }
+
+    66% {
+      transform: scale(0.97) translateY(0);
+    }
+
+    100% {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* =========================================
+   MODAL CONTENT
+========================================= */
+
+  #abstractModal .modal-content {
+    border: none;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+
+    background: #ffffff;
+  }
+
+  /* =========================================
+   MODAL HEADER
+========================================= */
+
+  #abstractModal .modal-header {
+    background: linear-gradient(135deg, #0d6efd, #f04d0dbb);
+
+    color: white;
+
+    border-bottom: none;
+
+    padding: 18px 24px;
+  }
+
+  /* Popup title */
+
+  #abstractModal .modal-title {
+    font-weight: 700;
+
+    font-size: 20px;
+
+    letter-spacing: 0.3px;
+  }
+
+  /* Close button */
+
+  #abstractModal .btn-close {
+    background-color: white;
+
+    border-radius: 50%;
+
+    padding: 8px;
+
+    opacity: 0.9;
+
+    transition: all 0.25s ease;
+  }
+
+  #abstractModal .btn-close:hover {
+    transform: rotate(90deg) scale(1.1);
+
+    opacity: 1;
+  }
+
+  /* =========================================
+   MODAL BODY
+========================================= */
+
+  #abstractModal .modal-body {
+    padding: 25px;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: #343a40;
+
+    background: #ffffff;
+  }
+
+  /* =========================================
+   DETAILS LIST
+========================================= */
+
+  #abstractModal .rs-details-list {
+    margin: 0;
+  }
+
+  #abstractModal .rs-details-list dt {
+    font-weight: 700;
+
+    color: #ce0e0ea9;
+
+    background: #f4f8ff;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    margin-bottom: 8px;
+  }
+
+  #abstractModal .rs-details-list dd {
+    padding: 12px;
+
+    margin-bottom: 8px;
+
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  /* =========================================
+   MODAL BACKDROP
+========================================= */
+
+  .modal-backdrop.show {
+    opacity: 0.65;
+  }
+
+  /* Back to Details Button */
+
+  .back-to-details-btn {
+    border-radius: 20px;
+
+    padding: 7px 16px;
+
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+  }
+
+  .back-to-details-btn:hover {
+    transform: translateX(-4px);
+
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25);
+  }
+  /* Seminar Title Alignment CSS */
+  .seminar-title-item { 
+    display: block; 
+    width: 100%; 
+    margin-bottom: 8px; 
+    padding: 0;
+   } 
+   
+  .seminar-title-item a {
+    display: block; 
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
+    text-align: left; 
+  }
+</style>
+<ul
+  class="nav nav-pills-rounded nav-justified mb-3"
+  id="mainTabs"
+  role="tablist"
+  style="min-width: 1000px"
+>
+  <li class="nav-item pe-3">
+    <button
+      class="nav-link active"
+      id="researchscholars-tab"
+      data-bs-toggle="pill"
+      data-bs-target="#researchscholarsPane"
+      type="button"
+    >
+      Research Scholars
+    </button>
+  </li>
+
+  <li class="nav-item pe-3">
+    <button
+      class="nav-link"
+      id="mtech-tab"
+      data-bs-toggle="pill"
+      data-bs-target="#mtechPane"
+      type="button"
+    >
+      M.TECH
+    </button>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <!-- ================= RESEARCH scholars ================= -->
+  <div class="tab-pane fade show active" id="researchscholarsPane">
+    <!-- SUB TABS -->
+    <ul
+      class="nav nav-pills-rounded nav-justified mb-3"
+      id="researchscholarsTabs"
+    >
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link active"
+          data-bs-toggle="pill"
+          data-bs-target="#currentrsPane"
+        >
+          Current Reasearch Scholars
+        </button>
+      </li>
+
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link"
+          data-bs-toggle="pill"
+          data-bs-target="#aluminirsPane"
+        >
+          Alumini
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- Current Research Scholars -->
+      <div class="tab-pane fade show active" id="currentrsPane">
+        <div class="card border-dark mb-3">
+          <div class="card-body">
+            <h5 class="text-info">Current Research Scholars</h5>
+            <p>The current research scholars are listed here.</p>
+            <div id="crsOutput" class="mt-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alumini Reaserach Scholars-->
+      <div class="tab-pane fade" id="aluminirsPane">
+        <div class="card border-dark mb-3">
+          <div class="card-body">
+            <h5 class="text-success">Alumni Research Scholars</h5>
+            <p>The Batches from 1980 to 2026</p>
+
+            <div class="container text-center">
+              <div class="rs-timeline">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info batch-btn"
+                    data-batch-range="1980-1989"
+                  >
+                    1980-1989
+                  </button>
+                </div>
+
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info batch-btn"
+                    data-batch-range="1990-1999"
+                  >
+                    1990-1999
+                  </button>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info batch-btn"
+                    data-batch-range="2000-2009"
+                  >
+                    2000-2009
+                  </button>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info batch-btn"
+                    data-batch-range="2010-2019"
+                  >
+                    2010-2019
+                  </button>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info batch-btn"
+                    data-batch-range="2020-2026"
+                  >
+                    2020-2026
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="rsOutput" class="mt-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= M.TECH ================= -->
+  <div class="tab-pane fade" id="mtechPane">
+    <!-- SUB TABS -->
+    <ul class="nav nav-pills-rounded nav-justified mb-3" id="mtechTabs">
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link active"
+          data-bs-toggle="pill"
+          data-bs-target="#currentmPane"
+        >
+          Current M.TECH Students
+        </button>
+      </li>
+
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link"
+          data-bs-toggle="pill"
+          data-bs-target="#aluminimPane"
+        >
+          Alumini
+        </button>
+      </li>
+
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link"
+          data-bs-toggle="pill"
+          data-bs-target="#awardspPane"
+        >
+          Roll of Honours/Awards and Medals
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- Current Mtech -->
+      <div class="tab-pane fade show active" id="currentmPane">
+        <div class="card border-dark mb-3">
+          <div class="card-body">
+            <h5 class="text-info">Current M.tech Batch</h5>
+            <p>The current M.tech students are listed here.</p>
+            <div class="container text-center">
+              <div class="row">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info batch-btn"
+                    data-batch="2025"
+                  >
+                    2025-27
+                  </button>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info batch-btn"
+                    data-batch="2026"
+                  >
+                    2026-28
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div id="cmsOutput" class="mt-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alumini Mtech-->
+      <div class="tab-pane fade" id="aluminimPane">
+        <div class="card border-dark mb-3">
+          <div class="card-body">
+            <h5 class="text-success">Alumni M.Tech</h5>
+            <p>The Batches from 1968 to 2023</p>
+            <div class="container text-center">
+              <div id="mtechAlumniYears" class="year-buttons"></div>
+            </div>
+            <div id="msOutput" class="mt-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================
+     THESIS ABSTRACT MODAL
+========================================= -->
+      <div class="modal fade" id="abstractModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="abstractTitle">Thesis Abstract</h5>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+
+            <div class="modal-body" id="abstractContent"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roll of Honours/Awards -->
+      <div class="tab-pane fade" id="awardspPane">
+        <div class="card border-dark mb-3">
+          <div class="card-body">
+            <h5 class="text-success">Roll of Honours - Awards & Medals</h5>
+            <p>Awards and medals received by M.Tech students</p>
+
+            <!-- SUB TABS FOR SHEETS -->
+            <ul
+              class="nav nav-pills-rounded nav-justified mb-3"
+              id="awardsTabs"
+            >
+              <li class="nav-item pe-3">
+                <button
+                  class="nav-link active"
+                  data-bs-toggle="pill"
+                  data-bs-target="#awardSheet1Pane"
+                >
+                  Roll of honours
+                </button>
+              </li>
+
+              <li class="nav-item pe-3">
+                <button
+                  class="nav-link"
+                  data-bs-toggle="pill"
+                  data-bs-target="#awardSheet2Pane"
+                >
+                  Medals & Awards
+                </button>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <!-- Sheet 1 -->
+              <div class="tab-pane fade show active" id="awardSheet1Pane">
+                <div id="awardsOutput1" class="mt-3"></div>
+              </div>
+
+              <!-- Sheet 2 -->
+              <div class="tab-pane fade" id="awardSheet2Pane">
+                <div id="awardsOutput2" class="mt-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    let previousModalData = null;
+
+    const rowsPerPage = 12;
+
+    const state = {};
+
+    const rsDetailsCache = {};
+
+    // Generate M.Tech Alumni year buttons
+    const alumniYears = Array.from(
+      //update the highest year range by +1 to add one more year button
+      { length: 2024 - 1968 + 1 },
+      (_, i) => 1968 + i,
+    );
+
+    $("#mtechAlumniYears").html(
+      alumniYears
+        .map(
+          (year) => `
+        <button
+            type="button"
+            class="btn btn-outline-info batch-btn"
+            data-batch="${year}">
+            ${year}-${String((year + 2) % 100).padStart(2, "0")}
+        </button>
+    `,
+        )
+        .join(""),
+    );
+
+    // ================= IMAGE PATH =================
+
+    function getImagePath(photoValue) {
+      const DUMMY_IMAGE = "images/placeholder.jpg";
+
+      if (!photoValue) return DUMMY_IMAGE;
+
+      let value = String(photoValue).trim();
+
+      if (!value) return DUMMY_IMAGE;
+
+      if (value.startsWith("http")) return value;
+
+      return `images/${value}.jpg`;
+    }
+
+    // ================= BADGE COLOR =================
+
+    function getBadgeColor(mode) {
+      if (!mode) return "badge bg-secondary";
+
+      const val = String(mode).toLowerCase().trim();
+
+      if (val.includes("full")) return "badge bg-success";
+
+      if (val.includes("part")) return "badge bg-warning text-dark";
+
+      return "badge bg-secondary";
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Preserve line breaks and separate numbered Seminar Titles
+    // Example:
+    // 1. Advanced Driver Assistance Systems
+    // 2. Soil Stabilization By Other Materials
+    function formatSeminarTitle(value) {
+      let safe = escapeHtml(value);
+
+      // Convert actual Excel/Windows/Mac line breaks to <br>
+      safe = safe.replace(/\r\n|\r|\n/g, "<br>");
+
+      // Also handle cells where titles are stored on one line:
+      // "1. First Title 2. Second Title"
+      safe = safe.replace(/\s+(?=\d+\.\s)/g, "<br>");
+
+      return safe;
+    }
+
+    function formatMultilineText(value) {
+      return escapeHtml(value).replace(/\r\n|\r|\n/g, "<br>");
+    }
+
+    function getFirstValue(row, keys) {
+      for (const key of keys) {
+        if (row[key]) return row[key];
+      }
+
+      return "";
+    }
+
+    // ================= BUILD RESEARCH SCHOLAR DETAILS =================
+    function buildRsDetails(row) {
+      const hiddenFields = [
+        "photo",
+        "year",
+        "batch",
+        "name of the scholar",
+        "name",
+        "scholar name",
+        "thesis abstract",
+        "abstract",
+        "roll number",
+        "seminar abstract",
+      ];
+
+      // Convert an Excel value into an array of numbered items.
+      // Example:
+      // "1. First title 2. Second title" -> ["1. First title", "2. Second title"]
+      function splitNumberedItems(value) {
+        const str = String(value || "")
+          .replace(/\r\n/g, "\n")
+          .replace(/\r/g, "\n")
+          .trim();
+
+        if (!str) return [];
+
+        const matches = [...str.matchAll(/(?:^|\n|\s)(\d+)\.\s+/g)];
+
+        // If there are no numbered items, keep the complete value as one item.
+        if (matches.length === 0) return [str];
+
+        const items = [];
+
+        matches.forEach((match, index) => {
+          const startIndex = match.index + match[0].length - match[0].length;
+          const contentStart = match.index + match[0].length - 0;
+
+          // The match may include a preceding space/newline. Find the actual number.
+          const numberStart = match.index + match[0].lastIndexOf(match[1] + ".");
+          const endIndex =
+            index + 1 < matches.length ? matches[index + 1].index : str.length;
+
+          const item = str.slice(numberStart, endIndex).trim();
+
+          if (item) items.push(item);
+        });
+
+        return items;
+      }
+
+      // Same idea as above, but keeps each numbered abstract together.
+      function splitNumberedAbstracts(value) {
+        const str = String(value || "")
+          .replace(/\r\n/g, "\n")
+          .replace(/\r/g, "\n")
+          .trim();
+
+        if (!str) return [];
+
+        const matches = [...str.matchAll(/(?:^|\n|\s)(\d+)\.\s+/g)];
+
+        if (matches.length === 0) return [str];
+
+        const abstracts = [];
+
+        matches.forEach((match, index) => {
+          const numberStart =
+            match.index + match[0].lastIndexOf(match[1] + ".");
+          const endIndex =
+            index + 1 < matches.length ? matches[index + 1].index : str.length;
+
+          const item = str.slice(numberStart, endIndex).trim();
+
+          if (item) abstracts.push(item);
+        });
+
+        return abstracts;
+      }
+
+      const rows = Object.keys(row)
+        .filter((key) => {
+          const normalizedKey = key.toLowerCase().trim();
+          return !hiddenFields.includes(normalizedKey);
+        })
+        .map((key) => {
+          const value =
+            row[key] === undefined ||
+            row[key] === null ||
+            String(row[key]).trim() === ""
+              ? "Data not available"
+              : row[key];
+
+          // ================= SEMINAR TITLE =================
+          if (key.toLowerCase().includes("seminar title")) {
+            const seminarAbstract =
+              row["Seminar Abstract"] ||
+              row["SEMINAR ABSTRACT"] ||
+              row["seminar abstract"] ||
+              row["Seminar Details"] ||
+              "";
+
+            const titles = splitNumberedItems(value);
+            const abstracts = splitNumberedAbstracts(seminarAbstract);
+
+            // Create ONE clickable link for EACH seminar title.
+            const seminarLinks = titles
+              .map((seminarTitle, index) => {
+                // Match abstract 1 to title 1, abstract 2 to title 2, etc.
+                const abstractForTitle =
+                  abstracts[index] ||
+                  (titles.length === 1 ? seminarAbstract : "");
+
+                return `
+                 <div class="seminar-title-item">
+                     <a href="javascript:void(0)"
+                        class="thesis-link seminar-single-title text-primary text-decoration-none fw-bold"
+                        data-title="${escapeHtml(seminarTitle)}"
+                        data-abstract="${escapeHtml(abstractForTitle)}">
+                       ${formatMultilineText(seminarTitle)}
+                     </a>
+                  </div>
+                `;
+              })
+              .join("");
+
+            return `
+              <dt class="col-sm-4">${escapeHtml(key)}</dt>
+              <dd class="col-sm-8 seminar-title-text">
+                ${seminarLinks || "Data not available"}
+              </dd>
+            `;
+          }
+
+          // ================= THESIS TITLE =================
+          if (key.toLowerCase().includes("thesis title")) {
+            const popupContent =
+              row["Thesis Abstract"] ||
+              row["THESIS ABSTRACT"] ||
+              row["thesis abstract"] ||
+              row["Abstract"] ||
+              "";
+
+            return `
+              <dt class="col-sm-4">${escapeHtml(key)}</dt>
+              <dd class="col-sm-8">
+                <a href="javascript:void(0)"
+                   class="thesis-link text-primary text-decoration-none fw-bold"
+                   data-title="${escapeHtml(value)}"
+                   data-abstract="${escapeHtml(popupContent)}">
+                  ${formatMultilineText(value)}
+                </a>
+              </dd>
+            `;
+          }
+
+          return `
+            <dt class="col-sm-4">${escapeHtml(key)}</dt>
+            <dd class="col-sm-8">${escapeHtml(value)}</dd>
+          `;
+        })
+        .join("");
+
+      return `
+        <dl class="row rs-details-list mb-0">
+          ${rows || '<dd class="col-12 mb-0">No additional details available.</dd>'}
+        </dl>
+      `;
+    }
+
+    function showDetailsModal(title, content, showBackButton = false) {
+      const modalElement = document.getElementById("abstractModal");
+
+      if (!modalElement) return;
+
+      if (modalElement.parentElement !== document.body) {
+        document.body.appendChild(modalElement);
+      }
+
+      $("#abstractTitle").text(title);
+
+      $("#abstractContent").html(`
+        ${
+          showBackButton
+            ? `
+            <div class="mb-3">
+                <button 
+                    type="button"
+                    class="btn btn-outline-primary btn-sm back-to-details-btn"
+                >
+                    ← Back to Details
+                </button>
+            </div>
+        `
+            : ""
+        }
+
+        ${content}
+    `);
+
+      const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+
+      if (!modalElement.classList.contains("show")) {
+        modal.show();
+      }
+    }
+
+    // ================= LOAD EXCEL =================
+
+    async function loadExcel(fileUrl, mode, outputDiv, batch = null) {
+      try {
+        const response = await fetch(fileUrl);
+
+        if (!response.ok) throw new Error(`Cannot load ${fileUrl}`);
+
+        const data = await response.arrayBuffer();
+
+        const workbook = XLSX.read(data, {
+          type: "array",
+        });
+
+        let sheetName;
+
+        if (batch) {
+          sheetName = workbook.SheetNames.find(
+            (s) => s.toString().trim() === batch.toString().trim(),
+          );
+
+          if (!sheetName) sheetName = workbook.SheetNames[0];
+        } else {
+          sheetName = workbook.SheetNames[0];
+        }
+
+        const sheet = workbook.Sheets[sheetName];
+
+        let excelData = XLSX.utils.sheet_to_json(sheet, {
+          defval: "",
+        });
+
+        excelData = excelData.map((row) => {
+          const cleaned = {};
+
+          Object.keys(row).forEach((key) => {
+            cleaned[key.trim()] = row[key];
+          });
+
+          return cleaned;
+        });
+
+        state[mode] = {
+          fullData: excelData,
+          filteredData: [...excelData],
+          currentPage: 1,
+          outputDiv,
+          batch,
+        };
+
+        renderLayout(mode);
+        renderData(mode);
+      } catch (err) {
+        console.error(err);
+
+        $(outputDiv).html(`
+                <div class="alert alert-danger">
+                    Failed to load data
+                </div>
+            `);
+      }
+    }
+
+    async function loadExcelBatchRange(fileUrl, mode, outputDiv, range) {
+      try {
+        const response = await fetch(fileUrl);
+
+        if (!response.ok) throw new Error(`Cannot load ${fileUrl}`);
+
+        const data = await response.arrayBuffer();
+
+        const workbook = XLSX.read(data, {
+          type: "array",
+        });
+
+        const [startBatch, endBatch] = range
+          .split("-")
+          .map((value) => Number(value.trim()));
+
+        const matchingSheets = workbook.SheetNames.filter((sheetName) => {
+          const batchYear = Number(sheetName.toString().trim());
+
+          return batchYear >= startBatch && batchYear <= endBatch;
+        });
+
+        let excelData = [];
+
+        matchingSheets.forEach((sheetName) => {
+          const sheet = workbook.Sheets[sheetName];
+
+          const rows = XLSX.utils.sheet_to_json(sheet, {
+            defval: "",
+          });
+
+          rows.forEach((row) => {
+            const cleaned = {};
+
+            Object.keys(row).forEach((key) => {
+              cleaned[key.trim()] = row[key];
+            });
+
+            if (!Object.prototype.hasOwnProperty.call(cleaned, "Batch")) {
+              cleaned.Batch = sheetName;
+            }
+
+            excelData.push(cleaned);
+          });
+        });
+
+        state[mode] = {
+          fullData: excelData,
+          filteredData: [...excelData],
+          currentPage: 1,
+          outputDiv,
+          batch: range,
+        };
+
+        renderLayout(mode);
+        renderData(mode);
+      } catch (err) {
+        console.error(err);
+
+        $(outputDiv).html(`
+                <div class="alert alert-danger">
+                    Failed to load data
+                </div>
+            `);
+      }
+    }
+
+    // ================= LOAD ALL SHEETS =================
+
+    async function loadExcelAllSheets(fileUrl) {
+      try {
+        const response = await fetch(fileUrl);
+
+        if (!response.ok) throw new Error(fileUrl);
+
+        const data = await response.arrayBuffer();
+
+        const workbook = XLSX.read(data, {
+          type: "array",
+        });
+
+        for (let i = 0; i < Math.min(2, workbook.SheetNames.length); i++) {
+          const sheet = workbook.Sheets[workbook.SheetNames[i]];
+
+          let excelData = XLSX.utils.sheet_to_json(sheet, {
+            defval: "",
+          });
+
+          excelData = excelData.map((row) => {
+            const cleaned = {};
+
+            Object.keys(row).forEach((key) => {
+              cleaned[key.trim()] = row[key];
+            });
+
+            return cleaned;
+          });
+
+          const mode = `AWARDS${i + 1}`;
+
+          state[mode] = {
+            fullData: excelData,
+            filteredData: [...excelData],
+            currentPage: 1,
+            outputDiv: `#awardsOutput${i + 1}`,
+          };
+
+          renderLayout(mode);
+          renderData(mode);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // ================= INITIAL LOAD =================
+
+    loadExcel("excels/Phd_Current.xlsx", "CRS", "#crsOutput");
+
+    loadExcelAllSheets("excels/awards and honours.xlsx");
+
+    // ================= BATCH BUTTON =================
+    $(document).on("click", ".batch-btn", function () {
+      // Highlight selected button
+      const parentContainer = $(this).closest(".card-body");
+
+      parentContainer
+        .find(".batch-btn")
+        .removeClass("btn-info")
+        .addClass("btn-outline-info");
+
+      $(this).removeClass("btn-outline-info").addClass("btn-info");
+
+      if ($(this).closest("#aluminirsPane").length) {
+        const range = $(this).data("batch-range");
+
+        if (range) {
+          loadExcelBatchRange(
+            "excels/Phd_Alumini.xlsx",
+            "RS",
+            "#rsOutput",
+            range,
+          );
+        } else {
+          const batch = $(this).data("batch").toString().trim();
+
+          loadExcel("excels/Phd_Alumini.xlsx", "RS", "#rsOutput", batch);
+        }
+      } else if ($(this).closest("#currentmPane").length) {
+        const batch = $(this).data("batch").toString().trim();
+
+        loadExcel("excels/Current_Mtech.xlsx", "CMS", "#cmsOutput", batch);
+      } else {
+        const batch = $(this).data("batch").toString().trim();
+
+        loadExcel("excels/M-Tech_Alumini.xlsx", "MS", "#msOutput", batch);
+      }
+    });
+
+    // ================= SEARCH =================
+
+    $(document).on("input", "[id^='search']", function () {
+      const mode = this.id.replace("search", "");
+
+      const searchText = $(this).val().trim().toLowerCase();
+
+      if (!state[mode]) return;
+
+      state[mode].filteredData = state[mode].fullData.filter((row) => {
+        return Object.values(row).some((value) => {
+          return String(value || "")
+            .toLowerCase()
+            .includes(searchText);
+        });
+      });
+
+      state[mode].currentPage = 1;
+
+      renderData(mode);
+    });
+    // ========click event for popup=============
+    $(document).on("click", ".thesis-link", function (e) {
+      e.preventDefault();
+
+      // Read the exact title and matching abstract from THIS clicked link.
+      // Each Seminar Title has its own data-abstract value.
+      const title = $(this).attr("data-title") || "Seminar Title";
+      const content =
+        $(this).attr("data-abstract") || "Abstract not available.";
+
+      showDetailsModal(title, content, true);
+    });
+    $(document).on("click", ".back-to-details-btn", function () {
+      if (previousModalData) {
+        showDetailsModal(
+          previousModalData.title,
+          previousModalData.content,
+          false,
+        );
+      }
+    });
+
+    $(document).on("click", ".rs-details-btn", function () {
+      const detailsId = $(this).data("details-id");
+
+      const row = rsDetailsCache[detailsId];
+
+      const name = $(this).data("name");
+
+      const rollNumber = $(this).data("rollnumber");
+
+      const title = rollNumber
+        ? `${name} - ${rollNumber}`
+        : `${name} - ${$(this).text()}`;
+
+      const content = row
+        ? buildRsDetails(row)
+        : "No additional details available.";
+
+      /* Save the first popup */
+      previousModalData = {
+        title: title,
+        content: content,
+      };
+
+      showDetailsModal(title, content);
+    });
+
+    // ================= RENDER LAYOUT =================
+
+    function renderLayout(mode) {
+      const data = state[mode];
+
+      $(data.outputDiv).html(`
+
+            ${data.batch ? `<h5>Batch ${data.batch}</h5>` : ""}
+
+            <input
+                type="text"
+                id="search${mode}"
+                class="form-control mb-3"
+                placeholder="Search..."
+            >
+
+            <div id="content${mode}"></div>
+
+            <div class="d-flex justify-content-between mt-3">
+
+                <div id="info${mode}"></div>
+
+                <div id="pagination${mode}"></div>
+
+            </div>
+        `);
+    }
+
+    // ================= RENDER DATA =================
+
+    function renderData(mode) {
+      const dataState = state[mode];
+
+      if (!dataState) return;
+
+      if (!dataState.filteredData.length) {
+        $("#content" + mode).html(`
+                <div class="alert alert-warning">
+                    No matching records found
+                </div>
+            `);
+
+        $("#pagination" + mode).html("");
+
+        $("#info" + mode).html("0 results");
+
+        return;
+      }
+
+      const start =
+        mode === "RS" ? 0 : (dataState.currentPage - 1) * rowsPerPage;
+
+      const pageData =
+        mode === "RS" || mode === "AWARDS1" || mode === "AWARDS2"
+          ? dataState.filteredData
+          : dataState.filteredData.slice(start, start + rowsPerPage);
+
+      if (mode === "CRS") {
+        let html = `<div class="row">`;
+
+        pageData.forEach((s) => {
+          html += `
+                    <div class="col-md-3 mb-3">
+
+                        <div class="card text-center p-2 shadow-sm">
+
+                            <div class="img-hover-box">
+
+                                <img
+                                  src="${getImagePath(s.Photo)}"
+                                  onerror="this.src='images/placeholder.jpg'"
+                                >
+
+                                <div class="hover-text">
+                                    ${s["Research Area"] || "-"}
+                                </div>
+
+                            </div>
+
+                            <h6 class="mt-2">
+                                ${s.Name || "-"}
+                            </h6>
+
+                            <small>
+                                ${s["Reg No."] || "-"}
+                            </small>
+
+                            <br>
+
+                            <small>
+                                📞 ${s["Phone Number"] || "-"}
+                            </small>
+
+                            <br>
+
+                            <small>
+                                ✉ ${s["Email Id"] || "-"}
+                            </small>
+
+                            <br>
+
+                        
+                            <h6 class="mt-2">
+                                👨‍🏫 <strong>Supervisor and Co-Supervisor:</strong> ${s["Supervisor and Co-Supervisor"] || "-"}
+                            </h6>
+
+                            <br>
+                            <span class="${getBadgeColor(
+                              s["Study Mode"] || s["Mode of Study"],
+                            )}">
+                                ${
+                                  s["Study Mode"] ||
+                                  s["Mode of Study"] ||
+                                  "Unknown"
+                                }
+                            </span>
+
+                        </div>
+
+                    </div>
+                `;
+        });
+
+        html += "</div>";
+
+        $("#content" + mode).html(html);
+      } else if (mode === "RS") {
+        let html = `<div class="rs-alumni-grid">`;
+
+        pageData.forEach((s, index) => {
+          const name =
+            getFirstValue(s, ["Name of the Scholar", "Name", "Scholar Name"]) ||
+            "-";
+          const year = getFirstValue(s, ["Year", "Batch"]) || "-";
+          const detailsId = `rs-${start + index}`;
+
+          rsDetailsCache[detailsId] = s;
+
+          html += `
+                    <div class="card rs-alumni-card shadow-sm">
+                        <img
+                          class="rs-alumni-photo"
+                          src="${getImagePath(s.Photo)}"
+                          alt="${escapeHtml(name)}"
+                          onerror="this.src='images/placeholder.jpg'"
+                        >
+
+                        <div class="card-body p-3">
+                            <h6 class="rs-alumni-name">
+                                Name: ${escapeHtml(name)}
+                            </h6>
+
+                            <span class="text-muted">
+                                Year: ${escapeHtml(year)}
+                            </span>
+
+                            <button
+                              type="button"
+                              class="btn btn-sm btn-outline-primary rs-details-btn"
+                              data-name="${escapeHtml(name)}"
+                              data-details-id="${detailsId}"
+                            >
+                              PhD Details
+                            </button>
+                        </div>
+                    </div>
+                `;
+        });
+
+        html += "</div>";
+
+        $("#content" + mode).html(html);
+      } // ================= TABLE VIEW =================
+      else if (mode === "MS") {
+        let html = `<div class="mtech-alumni-grid">`;
+
+        pageData.forEach((s, index) => {
+          const name =
+            s["Name"] || s["Student Name"] || s["Name of Student"] || "-";
+
+          const year = s["Batch"] || s["Year"] || "-";
+
+          const detailsId = `ms-${start + index}`;
+
+          rsDetailsCache[detailsId] = s;
+
+          html += `
+              <div class="card mtech-alumni-card shadow-sm">
+
+                  <img
+                      class="mtech-alumni-photo"
+                      src="${getImagePath(s.Photo)}"
+                      onerror="this.src='images/placeholder.jpg'"
+                  >
+
+                  <div class="card-body p-3">
+
+                      <h6 class="mtech-alumni-name">
+                          Name: ${escapeHtml(name)}
+                      </h6>
+
+                      <span class="text-muted mb-2">
+                          Batch: ${escapeHtml(year)}
+                      </span>
+
+                      <button
+                          class="btn btn-outline-primary btn-sm rs-details-btn"
+                          data-name="${escapeHtml(name)}"
+                          data-rollnumber="${escapeHtml(
+                            s["Roll Number"] ||
+                              s["Roll No."] ||
+                              s["Reg No."] ||
+                              "Roll number data not available",
+                          )}"
+                          data-details-id="${detailsId}">
+                          M.Tech Details
+                      </button>
+
+                  </div>
+
+              </div>
+              `;
+        });
+
+        html += "</div>";
+
+        $("#content" + mode).html(html);
+
+        renderPagination(mode);
+      } else if (mode === "CMS") {
+        let html = `<div class="row">`;
+
+        pageData.forEach((s) => {
+          html += `
+        <div class="col-md-3 mb-3">
+
+            <div class="card text-center p-2 shadow-sm">
+
+                <div class="img-hover-box">
+
+                    <img
+                        src="${getImagePath(s.Photo)}"
+                        onerror="this.src='images/placeholder.jpg'"
+                    >
+
+                    <div class="hover-text">
+                        ${s["M.Tech Thesis Title"] || "-"}
+                    </div>
+
+                </div>
+
+                <h6 class="mt-2">
+                    ${s.Name || s["Student Name"] || "-"}
+                </h6>
+
+                <small>
+                    ${s["Roll Number"] || s["Reg No."] || "-"}
+                </small>
+
+                <h6 class="mt-2">
+                    👨‍🏫 <strong>Supervisor and Co-Supervisor:</strong> ${s["Supervisor and Co-Supervisor"] || "-"}
+                </h6>
+
+
+            </div>
+
+        </div>
+        `;
+        });
+
+        html += "</div>";
+
+        $("#content" + mode).html(html);
+
+        renderPagination(mode);
+      } else if (mode === "AWARDS1") {
+        let html = `<div class="honours-list">`;
+
+        pageData.forEach((row) => {
+          html += `
+    <div class="honour-item">
+
+        <div class="honour-year">
+            ${row.Year}
+        </div>
+
+        <div class="honour-divider"></div>
+
+        <div>
+
+            <div class="honour-name">
+                ${row["Name of the Topper"]}
+            </div>
+
+            <div class="honour-rank">
+                Roll of Honours
+            </div>
+
+        </div>
+
+    </div>
+    `;
+        });
+
+        html += `</div>`;
+
+        $("#content" + mode).html(html);
+      } else if (mode === "AWARDS2") {
+        let html = `<div class="medals-list">`;
+
+        pageData.forEach((row) => {
+          html += `
+
+        <div class="medal-item">
+
+            <div class="medal-year">
+                ${row.Year}
+            </div>
+
+            <div class="medal-divider"></div>
+
+            <div class="medal-details">
+
+                <div class="medal-title">
+                    🏅 ${row["Gold medal/Cash prize"]}
+                </div>
+
+                <div class="medal-recipient">
+                    Awarded to <span>${row["Recipiant"]}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+        });
+
+        html += "</div>";
+
+        $("#content" + mode).html(html);
+
+        renderPagination(mode);
+      }
+
+      if (mode === "RS" || mode === "AWARDS1" || mode === "AWARDS2") {
+        $("#pagination" + mode).html("");
+        $("#info" + mode).html(`${dataState.filteredData.length} results`);
+      } else {
+        renderPagination(mode);
+      }
+    }
+
+    // ================= PAGINATION =================
+
+    function renderPagination(mode) {
+      const dataState = state[mode];
+
+      const totalPages = Math.max(
+        1,
+        Math.ceil(dataState.filteredData.length / rowsPerPage),
+      );
+
+      let buttons = "";
+
+      buttons += `
+            <button
+              class="btn btn-sm btn-outline-primary me-1"
+              onclick="changePage('${mode}', ${dataState.currentPage - 1})"
+              ${dataState.currentPage === 1 ? "disabled" : ""}
+            >
+                Prev
+            </button>
+        `;
+
+      for (let i = 1; i <= totalPages; i++) {
+        buttons += `
+                <button
+                    class="btn btn-sm ${
+                      i === dataState.currentPage
+                        ? "btn-primary"
+                        : "btn-outline-primary"
+                    } me-1"
+                    onclick="changePage('${mode}', ${i})"
+                >
+                    ${i}
+                </button>
+            `;
+      }
+
+      buttons += `
+            <button
+              class="btn btn-sm btn-outline-primary"
+              onclick="changePage('${mode}', ${dataState.currentPage + 1})"
+              ${dataState.currentPage === totalPages ? "disabled" : ""}
+            >
+                Next
+            </button>
+        `;
+
+      $("#pagination" + mode).html(buttons);
+
+      $("#info" + mode).html(`
+            Showing
+            ${Math.min(
+              (dataState.currentPage - 1) * rowsPerPage + 1,
+              dataState.filteredData.length,
+            )}
+            to
+            ${Math.min(
+              dataState.currentPage * rowsPerPage,
+              dataState.filteredData.length,
+            )}
+            of
+            ${dataState.filteredData.length}
+        `);
+    }
+
+    // ================= GLOBAL PAGE CHANGE =================
+
+    window.changePage = function (mode, page) {
+      if (!state[mode]) return;
+
+      const totalPages = Math.ceil(
+        state[mode].filteredData.length / rowsPerPage,
+      );
+
+      if (page < 1 || page > totalPages) return;
+
+      state[mode].currentPage = page;
+
+      renderData(mode);
+    };
+  });
+</script>

@@ -1,0 +1,723 @@
+<style>
+/* =========================================
+   COLLABORATION CARD
+========================================= */
+
+.project-card {
+    cursor: pointer;
+    height: 100%;
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.96);
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 12px 28px rgba(248, 170, 2, 0.25);
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.project-card .card-img-top {
+    height: 210px;
+    width: 100%;
+
+    object-fit: contain;
+
+    padding: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #f8f9fa,
+        #ffffff
+    );
+}
+
+
+/* =========================================
+   CARD BODY
+========================================= */
+
+.project-card .card-body {
+    padding: 18px 20px 20px;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.project-status {
+    display: inline-block;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    margin-bottom: 10px;
+
+    letter-spacing: 0.4px;
+
+    background: #fff3cd;
+    color: #856404;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.project-title {
+    font-size: 17px;
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    color: #29435d;
+
+    margin-bottom: 7px;
+
+    min-height: 48px;
+}
+
+
+/* =========================================
+   PARTNER
+========================================= */
+
+.project-partner {
+    font-size: 14px;
+
+    color: #6c757d;
+
+    line-height: 1.5;
+
+    min-height: 42px;
+}
+
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.project-divider {
+    border-top: 1px solid #eeeeee;
+
+    margin: 15px 0;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.project-footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+/* =========================================
+   TYPE
+========================================= */
+
+.project-type {
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color: #888;
+}
+
+
+/* =========================================
+   VIEW DETAILS
+========================================= */
+
+.project-view {
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: #f0a500;
+
+    transition: 0.25s ease;
+}
+
+.project-card:hover .project-view {
+    transform: translateX(4px);
+}
+
+/* =========================================
+   COLLABORATION MODAL
+========================================= */
+
+#projectModal .modal-dialog {
+    max-width: 850px;
+}
+
+
+/* =========================================
+   MODAL CONTENT
+========================================= */
+
+#projectModal .modal-content {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.98);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =========================================
+   MODAL HEADER
+========================================= */
+
+#projectModal .modal-header {
+    position: relative;
+
+    padding: 22px 28px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    background: linear-gradient(
+        135deg,
+        #29435d,
+        #365873
+    );
+}
+
+
+/* Orange accent line */
+
+#projectModal .modal-header::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: #f0a500;
+}
+
+
+/* =========================================
+   MODAL TITLE
+========================================= */
+
+#projectModal .modal-title {
+    color: #ffffff;
+
+    font-size: 21px;
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    padding-right: 40px;
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+#projectModal .btn-close {
+    background-color: rgba(255, 255, 255, 0.15);
+
+    border-radius: 50%;
+
+    padding: 10px;
+
+    opacity: 1;
+
+    filter: invert(1);
+
+    transition: 0.25s ease;
+}
+
+#projectModal .btn-close:hover {
+    background-color: rgba(255, 255, 255, 0.30);
+
+    transform: rotate(90deg);
+}
+
+
+/* =========================================
+   MODAL BODY
+========================================= */
+
+#projectModal .modal-body {
+    padding: 25px 28px;
+
+    background: #f8f9fa;
+}
+
+
+/* =========================================
+   DETAIL ROW
+========================================= */
+
+#projectModal .detail-row {
+    margin: 0 0 12px 0;
+
+    padding: 15px 18px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.05);
+
+    transition: 0.2s ease;
+}
+
+#projectModal .detail-row:hover {
+    box-shadow:
+        0 5px 14px rgba(0, 0, 0, 0.08);
+
+    transform: translateX(2px);
+}
+
+
+/* =========================================
+   DETAIL KEY
+========================================= */
+
+#projectModal .detail-key {
+    color: #29435d;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    text-transform: capitalize;
+}
+
+
+/* =========================================
+   DETAIL VALUE
+========================================= */
+
+#projectModal .detail-row .col-md-8 {
+    color: #555;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    word-break: break-word;
+}
+
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+#projectModal .modal-body::-webkit-scrollbar {
+    width: 7px;
+}
+
+#projectModal .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#projectModal .modal-body::-webkit-scrollbar-thumb {
+    background: #c5c5c5;
+
+    border-radius: 10px;
+}
+
+#projectModal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 576px) {
+
+    #projectModal .modal-dialog {
+        margin: 10px;
+    }
+
+    #projectModal .modal-content {
+        border-radius: 16px;
+    }
+
+    #projectModal .modal-header {
+        padding: 18px 20px;
+    }
+
+    #projectModal .modal-title {
+        font-size: 18px;
+    }
+
+    #projectModal .modal-body {
+        padding: 18px;
+    }
+
+    #projectModal .detail-row {
+        padding: 13px 15px;
+    }
+
+    #projectModal .detail-key {
+        margin-bottom: 5px;
+    }
+
+}
+
+
+</style>
+<!-- ================= MAIN TABS ================= -->
+<ul class="nav nav-pills-rounded nav-justified mb-3"
+    id="mainTabs"
+    role="tablist"
+    style="min-width:1000px">
+
+    <li class="nav-item pe-3">
+        <button class="nav-link active"
+                data-bs-toggle="pill"
+                data-bs-target="#academiccollaborationPane">
+            Academic Collaborations
+        </button>
+    </li>
+
+    <li class="nav-item pe-3">
+        <button class="nav-link"
+                data-bs-toggle="pill"
+                data-bs-target="#industrycollaborationPane">
+            Industry Collaborations
+        </button>
+    </li>
+
+</ul>
+
+<div class="tab-content">
+
+    <!-- ================= ACADEMIC ================= -->
+    <div class="tab-pane fade show active"
+         id="academiccollaborationPane">
+
+        <ul class="nav nav-pills-rounded nav-justified mb-4">
+
+            <li class="nav-item pe-3">
+                <button class="nav-link active"
+                        data-bs-toggle="pill"
+                        data-bs-target="#ongoingacademiccollaborationPane">
+                    Ongoing Academic Collaboration
+                </button>
+            </li>
+
+            <li class="nav-item pe-3">
+                <button class="nav-link"
+                        data-bs-toggle="pill"
+                        data-bs-target="#completedacademiccollaborationPane">
+                    Completed Academic Collaboration
+                </button>
+            </li>
+
+        </ul>
+
+        <div class="tab-content">
+
+            <div class="tab-pane fade show active"
+                 id="ongoingacademiccollaborationPane">
+
+                <div class="row g-4"
+                     id="academicOngoingContainer"></div>
+
+            </div>
+
+            <div class="tab-pane fade"
+                 id="completedacademiccollaborationPane">
+
+                <div class="row g-4"
+                     id="academicCompletedContainer"></div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= INDUSTRY ================= -->
+    <div class="tab-pane fade"
+         id="industrycollaborationPane">
+
+        <ul class="nav nav-pills-rounded nav-justified mb-4">
+
+            <li class="nav-item pe-3">
+                <button class="nav-link active"
+                        data-bs-toggle="pill"
+                        data-bs-target="#ongoingIndustrycollaborationPane">
+                    Ongoing Industry Collaboration
+                </button>
+            </li>
+
+            <li class="nav-item pe-3">
+                <button class="nav-link"
+                        data-bs-toggle="pill"
+                        data-bs-target="#completedIndustrycollaborationPane">
+                    Completed Industry Collaboration
+                </button>
+            </li>
+
+        </ul>
+
+        <div class="tab-content">
+
+            <div class="tab-pane fade show active"
+                 id="ongoingIndustrycollaborationPane">
+
+                <div class="row g-4"
+                     id="industryOngoingContainer"></div>
+
+            </div>
+
+            <div class="tab-pane fade"
+                 id="completedIndustrycollaborationPane">
+
+                <div class="row g-4"
+                     id="industryCompletedContainer"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal fade"
+     id="projectModal"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="modalTitle"></h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body"
+                 id="modalBody"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+$(document).ready(function(){
+
+    const DUMMY_IMAGE = "images/placeholder.jpg";
+
+    function createCard(row, type) {
+
+    let imagePath =
+        row["Collab-Image"] || DUMMY_IMAGE;
+
+    let subtitle =
+        type === "academic"
+            ? (row["Partner_Institute"] || "")
+            : (row["Company_Name"] || "");
+
+    let status =
+        row["Status"] || "";
+
+    let typeText =
+        type === "academic"
+            ? "Academic Collaboration"
+            : "Industry Collaboration";
+
+    return `
+        <div class="col-lg-4 col-md-6 mb-4">
+
+            <div class="card project-card"
+                 onclick='showDetails(${JSON.stringify(row)})'>
+
+                <img src="${imagePath}"
+                     class="card-img-top"
+                     onerror="this.src='${DUMMY_IMAGE}'">
+
+                <div class="card-body">
+
+                    <span class="project-status">
+                        ${status}
+                    </span>
+
+                    <div class="project-title">
+                        ${row["Organization_Name"] || "-"}
+                    </div>
+
+                    
+
+                    <div class="project-divider"></div>
+
+                    <div class="project-footer">
+
+                        <span class="project-type">
+                            ${typeText}
+                        </span>
+
+                        <span class="project-view">
+                            View Details →
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+    window.showDetails = function(row){
+
+        $("#modalTitle").html(row.Organization_Name );
+
+        let html = "";
+
+        Object.keys(row).forEach(key=>{
+
+            if(key !== "Collab-Image"){
+
+                html += `
+                    <div class="row detail-row">
+
+                        <div class="col-md-4 detail-key">
+                            ${key.replaceAll("_"," ")}
+                        </div>
+
+                        <div class="col-md-8">
+                            ${row[key] || "-"}
+                        </div>
+
+                    </div>
+                `;
+            }
+
+        });
+
+        $("#modalBody").html(html);
+
+        let modal =
+            new bootstrap.Modal(
+                document.getElementById("projectModal")
+            );
+
+        modal.show();
+    };
+
+    fetch("excels/collaboration_data.xlsx")
+        .then(response => response.arrayBuffer())
+        .then(data => {
+
+            const workbook =
+                XLSX.read(data,{type:"array"});
+
+            /* ================= ACADEMIC ================= */
+
+            const academicData =
+                XLSX.utils.sheet_to_json(
+                    workbook.Sheets["Academic Collaboration"]
+                );
+
+            academicData.forEach(row=>{
+
+                let card =
+                    createCard(row,"academic");
+
+                if(row.Status === "Ongoing"){
+
+                    $("#academicOngoingContainer")
+                        .append(card);
+
+                }else{
+
+                    $("#academicCompletedContainer")
+                        .append(card);
+
+                }
+
+            });
+
+            /* ================= INDUSTRY ================= */
+
+            const industryData =
+                XLSX.utils.sheet_to_json(
+                    workbook.Sheets["Industry Collaboration"]
+                );
+
+            industryData.forEach(row=>{
+
+                let card =
+                    createCard(row,"industry");
+
+                if(row.Status === "Ongoing"){
+
+                    $("#industryOngoingContainer")
+                        .append(card);
+
+                }else{
+
+                    $("#industryCompletedContainer")
+                        .append(card);
+
+                }
+
+            });
+
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+});
+
+</script>

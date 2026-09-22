@@ -1,0 +1,892 @@
+<style>
+  .image-container {
+    position: relative;
+    width: 150px;
+    height: 175px;
+    display: inline-block;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    border: 3px solid #ffc107;
+  }
+
+  .hover-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .image-container:hover .hover-text {
+    opacity: 1;
+  }
+  /* =========================================
+   FACULTY PROFILE CARD
+========================================= */
+
+  .faculty-profile-card {
+    display: block;
+    grid-template-columns: 32% 36% 32%;
+    min-height: 550px;
+
+    background: #f8f7f2;
+
+    border: 1px solid #172f4d;
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: 0 10px 30px rgba(15, 39, 68, 0.15);
+
+    font-family: Arial, sans-serif;
+  }
+  .faculty-main-content {
+  display: grid;
+  grid-template-columns: 32% 36% 32%;
+}
+
+.full-width-bio {
+  width: 100%;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+  /* =========================================
+   LEFT PANEL
+========================================= */
+
+  .faculty-left {
+  background: #122e4d;
+  padding: 32px;
+  color: white;
+  border-radius:12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  /* IMAGE */
+
+  .faculty-image-box {
+    width: 250px;
+    height: 320px;
+
+    background: #c9d5df;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    margin-bottom: 22px;
+  }
+
+  .faculty-image-box img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.4s ease;
+  }
+
+  .faculty-image-box:hover img {
+    transform: scale(1.05);
+  }
+
+  /* =========================================
+   BIO BOX
+========================================= */
+
+  .bio-box {
+    background: #fcf4d1;
+
+    color: #29435d;
+
+    padding: 16px;
+
+    border-radius: 11px;
+
+    border: 1px solid #d4c8a8;
+
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  .bio-box p {
+    margin: 8px 0 0;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+  }
+
+  /* =========================================
+   SECTION TITLE
+========================================= */
+
+  .section-title-people {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #6d879b;
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-title-people::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 3px;
+    margin-top: 5px;
+    background: #396afc;
+    border-radius: 5px;
+  }
+
+  /* =========================================
+   MIDDLE PANEL
+========================================= */
+
+  .faculty-middle {
+    padding: 34px 30px;
+
+    background: #f8f7f2;
+  }
+
+  .faculty-middle h1 {
+    margin: 0;
+
+    color: #122e4d;
+
+    font-family: Georgia, serif;
+
+    font-size: 46px;
+
+    line-height: 1.05;
+
+    font-weight: 700;
+  }
+
+  .faculty-middle h4 {
+    margin-top: 10px;
+
+    color: #3f7198;
+
+    font-size: 16px;
+
+    font-weight: 600;
+  }
+
+  /* PROFILE LABEL */
+
+  .profile-label {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 7px 12px;
+
+    border-radius: 20px;
+
+    background: #e7eef3;
+
+    color: #315d7d;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+  }
+
+  /* =========================================
+   CONTACT
+========================================= */
+
+  .contact-info {
+    margin-top: 28px;
+
+    color: #3d5368;
+
+    font-size: 15px;
+  }
+
+  .contact-info div {
+    margin-bottom: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+  }
+
+  .contact-icon {
+    font-size: 21px;
+
+    color: #8fc7e9;
+
+    width: 20px;
+  }
+
+  /* =========================================
+   RIGHT PANEL
+========================================= */
+
+  .faculty-right {
+    padding: 32px;
+
+    background: #f8f7f2;
+  }
+
+  /* =========================================
+   FACULTY STATISTICS
+========================================= */
+
+  .publication-stats {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+    margin-bottom: 20px;
+  }
+
+  .publication-box {
+    flex: 1;
+    min-width: 0;
+    height: 138px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff;
+
+    border-radius: 4px;
+
+    padding: 15px 8px;
+
+    text-align: center;
+
+    transition: all 0.3s ease;
+  }
+
+  /* Individual colors */
+
+  .publication-box:nth-child(1) {
+    background: #395a7f;
+  }
+
+  .publication-box:nth-child(2) {
+    background: #725f7e;
+  }
+
+  .publication-box:nth-child(3) {
+    background: #bd6679;
+  }
+
+  .publication-box:nth-child(4) {
+    background: #eb696f;
+  }
+
+  /* Number */
+
+  .publication-count {
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 34px;
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    color: #ffffff;
+  }
+
+  /* Label */
+
+  .publication-label {
+    margin-top: 12px;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+
+    font-weight: 500;
+
+    text-transform: uppercase;
+
+    color: #ffffff;
+  }
+
+  /* Hover effect */
+
+  .publication-box:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+
+    filter: brightness(1.05);
+  }
+
+  /* =========================================
+   IDENTIFIERS
+========================================= */
+
+  .identifier-title {
+    margin-top: 20px;
+
+    margin-bottom: 9px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    color: #607b91;
+  }
+
+  .identifier-box {
+    border: 1px solid #ccd7df;
+
+    border-radius: 11px;
+
+    overflow: hidden;
+
+    background: white;
+  }
+
+  .identifier-item {
+    padding: 13px 15px;
+
+    border-bottom: 1px solid #e2e7eb;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+  }
+
+  .identifier-item:last-child {
+    border-bottom: none;
+  }
+
+  .identifier-item strong {
+    color: #344c61;
+
+    font-size: 14px;
+  }
+
+  .identifier-item span {
+    color: #66849b;
+
+    font-size: 13px;
+  }
+
+  /* =========================================
+   HOVER EFFECT
+========================================= */
+
+  .faculty-profile-card {
+    transition:
+      transform 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .faculty-profile-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 18px 40px rgba(15, 39, 68, 0.22);
+  }
+
+  /* =========================================
+   RESPONSIVE
+========================================= */
+
+  @media (max-width: 992px) {
+    .faculty-profile-card {
+      grid-template-columns: 1fr;
+    }
+
+    .faculty-left {
+      padding: 25px;
+    }
+
+    .faculty-middle {
+      padding: 25px;
+    }
+
+    .faculty-right {
+      padding: 25px;
+    }
+
+    .faculty-middle h1 {
+      font-size: 38px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .faculty-middle h1 {
+      font-size: 32px;
+    }
+
+    .faculty-image-box {
+      height: 250px;
+    }
+  }
+</style>
+<!-- ================= MAIN TABS ================= -->
+<ul class="nav nav-pills-rounded nav-justified mb-3" style="min-width: 1000px">
+  <li class="nav-item pe-3">
+    <button
+      class="nav-link active"
+      data-bs-toggle="pill"
+      data-bs-target="#faculty"
+    >
+      Faculty
+    </button>
+  </li>
+  <li class="nav-item pe-3">
+    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#staff">
+      Non-Teaching Staff
+    </button>
+  </li>
+  <li class="nav-item pe-3">
+    <button
+      class="nav-link"
+      data-bs-toggle="pill"
+      data-bs-target="#previousfaculty"
+    >
+      Previous Faculty
+    </button>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <!-- ================= FACULTY ================= -->
+  <div class="tab-pane fade show active" id="faculty">
+    <!-- SUB TABS -->
+    <ul
+      class="nav nav-pills-rounded nav-justified mb-3"
+      style="min-width: 500px"
+    >
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link active"
+          data-bs-toggle="pill"
+          data-bs-target="#coreFaculty"
+        >
+          Core Faculty
+        </button>
+      </li>
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link"
+          data-bs-toggle="pill"
+          data-bs-target="#guestFaculty"
+        >
+          Guest Faculty
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- CORE -->
+      <div class="tab-pane fade show active" id="coreFaculty">
+        <div id="coreFacultyContainer"></div>
+      </div>
+
+      <!-- GUEST -->
+      <div class="tab-pane fade" id="guestFaculty">
+        <div id="guestFacultyContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STAFF ================= -->
+  <div class="tab-pane fade" id="staff">
+    <div
+      class="row row-cols-1 row-cols-md-3 g-4 text-center"
+      id="staffContainer"
+    ></div>
+  </div>
+
+  <!-- ================= PREVIOUS FACULTY ================= -->
+  <div class="tab-pane fade" id="previousfaculty">
+    <!-- SUB TABS -->
+    <ul
+      class="nav nav-pills-rounded nav-justified mb-3"
+      style="min-width: 500px"
+    >
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link active"
+          data-bs-toggle="pill"
+          data-bs-target="#previousFacultyTab"
+        >
+          Former Faculty Members
+        </button>
+      </li>
+
+      <li class="nav-item pe-3">
+        <button
+          class="nav-link"
+          data-bs-toggle="pill"
+          data-bs-target="#previousHODTab"
+        >
+          Previous Division HODs
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- Previous Faculty -->
+      <div class="tab-pane fade show active" id="previousFacultyTab">
+        <div
+          class="row row-cols-1 row-cols-md-4 g-4 text-center"
+          id="previousFacultyContainer"
+        ></div>
+      </div>
+
+      <!-- Previous HOD -->
+      <div class="tab-pane fade" id="previousHODTab">
+        <div
+          class="row row-cols-1 row-cols-md-4 g-4 text-center"
+          id="previousHODContainer"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    const DUMMY_IMAGE = "images/placeholder.jpg";
+
+    function getImageWithFallback(imagePath) {
+      return !imagePath || imagePath.toString().trim() === ""
+        ? DUMMY_IMAGE
+        : imagePath;
+    }
+
+    $.ajax({
+      url: "excels/faculty.xlsx", // your Excel file path
+      method: "GET",
+      xhrFields: {
+        responseType: "arraybuffer",
+      },
+      success: function (data) {
+        const workbook = XLSX.read(data, { type: "array" });
+
+        // ================= CORE FACULTY =================
+        let coreData = XLSX.utils.sheet_to_json(workbook.Sheets["CoreFaculty"]);
+        let coreHTML = "";
+
+        $.each(coreData, function (i, f) {
+          coreHTML += `
+            <div class="faculty-profile-card mb-2">
+
+  <!-- TOP SECTION -->
+  <div class="faculty-main-content">
+
+    <!-- LEFT SECTION -->
+    <div class="faculty-left">
+
+      <div class="faculty-image-box">
+        <img
+          src="${getImageWithFallback(f.Image)}"
+          alt="${f.Name}"
+          onerror="this.src='images/placeholder.jpg'"
+        >
+      </div>
+
+    </div>
+
+    <!-- MIDDLE SECTION -->
+    <div class="faculty-middle">
+
+      <h1>${f.Name}</h1>
+
+      <h4>${f.Designation}</h4>
+
+      <span class="profile-label">FACULTY PROFILE</span>
+
+      <div class="contact-info">
+
+        <div>
+          <span class="contact-icon">✉</span>
+          ${f.Mail}
+        </div>
+
+        <div>
+          <span class="contact-icon">📞</span>
+          ${f.Mobile}
+        </div>
+
+      </div>
+
+      <a href="${f.Profile || "#"}"
+         target="_blank"
+         class="btn btn-primary btn-sm">
+        View Profile
+      </a>
+
+    </div>
+
+            <!-- RIGHT SECTION -->
+            <div class="faculty-right">
+
+              <!-- Publications -->
+              
+
+                <div class="publication-stats">
+
+                  <!-- Publications -->
+                  <div class="publication-box">
+
+                    <div class="publication-count">
+                      ${f.Publications || "0"}
+                    </div>
+
+                    <div class="publication-label">
+                      Publications
+                    </div>
+                  </div>
+
+                  <!-- Doctoral Students -->
+                  <div class="publication-box">
+
+                    <div class="publication-count">
+                      ${f["Doctoral Students"] || "0"}
+                    </div>
+
+                    <div class="publication-label">
+                      Doctoral Students
+                    </div>
+                  </div>
+                  <!-- Projects -->
+                  <div class="publication-box">
+
+                    <div class="publication-count">
+                      ${f.PROJECTS || "0"}
+                    </div>
+
+                    <div class="publication-label">
+                      Projects
+                    </div>
+                  </div>
+                  <!-- PATENTS -->
+                  <div class="publication-box">
+
+                    <div class="publication-count">
+                      ${f["PATENTS"] || "0"}
+                    </div>
+
+                    <div class="publication-label">
+                      Patents
+                    </div>
+                  </div>
+                </div> 
+
+              <!-- Researcher Identifiers -->
+              <div class="identifier-title">
+                RESEARCHER IDENTIFIERS
+              </div>
+
+              <div class="identifier-box">
+
+                <div class="identifier-item">
+                  <strong>Google Scholar</strong>
+                  <span>
+                    ${
+                      f.GoogleScholar
+                        ? `<a href="${f.GoogleScholar}" target="_blank" rel="noopener noreferrer">
+                            ${f.GoogleScholar}
+                          </a>`
+                        : "Not available"
+                    }
+                  </span>
+                </div>
+
+                <div class="identifier-item">
+                  <strong>Scopus Author ID</strong>
+                  <span>
+                    ${
+                      f.Scopus
+                        ? `<a href="${f.Scopus}" target="_blank" rel="noopener noreferrer">
+                            ${f.Scopus}
+                          </a>`
+                        : "Not available"
+                    }
+                  </span>
+                </div>
+
+                <div class="identifier-item">
+                  <strong>ORCID ID</strong>
+                  <span>
+                    ${
+                      f.ORCID
+                        ? `<a href="${f.ORCID}" target="_blank" rel="noopener noreferrer">
+                            ${f.ORCID}
+                          </a>`
+                        : "Not available"
+                    }
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+          <!-- FULL WIDTH BIO SKETCH AT BOTTOM -->
+  <div class="bio-box full-width-bio">
+
+    <div class="section-title-people">
+      BIO SKETCH
+    </div>
+
+    <p>
+      ${f.Name} obtained his doctoral degree in Transportation Engineering
+      from ${f["PhD Institute"]}. He completed his Master's degree in
+      Transportation Engineering specialization from
+      ${f["Masters Institute"]}. His area of expertise is in
+      ${f.Research}.
+    </p>
+
+  </div>
+
+</div>
+          `;
+        });
+
+        $("#coreFacultyContainer").html(coreHTML);
+
+        // ================= GUEST FACULTY =================
+        let guestData = XLSX.utils.sheet_to_json(
+          workbook.Sheets["GuestFaculty"] || {},
+        );
+        let guestHTML = "";
+
+        $.each(guestData, function (i, f) {
+          guestHTML += `
+          <div class="card mb-3 p-3 bg-info bg-opacity-10 border border-info rounded">
+            <div class="row g-0">
+              <div class="col-md-4 text-center">
+                <img src="${getImageWithFallback(f.Image)}" class="img-fluid border border-5 border-warning" width="150px" height="175px" onerror="this.src='images/placeholder.jpg'">
+              </div>
+              <div class="col-md-8">
+                <h5>${f.Name}</h5>
+                <h6 class="text-muted">${f.Designation}</h6>
+                <p>📞 ${f.Mobile}</p>
+                <p>✉ ${f.Mail}</p>
+                <p>${f.Research}</p>
+              </div>
+            </div>
+          </div>`;
+        });
+
+        $("#guestFacultyContainer").html(guestHTML);
+
+        // ================= STAFF =================
+        let staffData = XLSX.utils.sheet_to_json(workbook.Sheets["Staff"]);
+        let staffHTML = "";
+
+        $.each(staffData, function (i, s) {
+          staffHTML += `
+          <div class="col">
+            <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+              <img src="${getImageWithFallback(s.Image)}" class="mx-auto border border-3 border-warning w-50" onerror="this.src='images/placeholder.jpg'">
+              <h5 class="mt-2">${s.Name}</h5>
+              <p>${s.Designation}</p>
+              <p>📞 ${s.Mobile}</p>
+              <p>✉ ${s.Mail}</p>
+            </div>
+          </div>`;
+        });
+
+        $("#staffContainer").html(staffHTML);
+
+        // ================= PREVIOUS FACULTY =================
+        let previousFacultyData = XLSX.utils.sheet_to_json(
+          workbook.Sheets["PreviousFaculty"] || {},
+        );
+
+        let previousFacultyHTML = "";
+
+        $.each(previousFacultyData, function (i, p) {
+          previousFacultyHTML += `
+    <div class="col">
+      <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+        <div class="image-container mx-auto">
+          <img src="${getImageWithFallback(p.Images)}" width="150" height="175" onerror="this.src='images/placeholder.jpg'">
+          <div class="hover-text">${p.Area}</div>
+        </div>
+
+        <h5 class="mt-2">${p.Name}</h5>
+
+        ${p.From ? `<p class="mb-1"><strong>From:</strong> ${p.From}</p>` : ""}
+
+        ${p.To ? `<p class="mb-0"><strong>To:</strong> ${p.To}</p>` : ""}
+      </div>
+    </div>
+  `;
+        });
+
+        $("#previousFacultyContainer").html(previousFacultyHTML);
+
+        // ================= PREVIOUS HOD =================
+        let previousHODData = XLSX.utils.sheet_to_json(
+          workbook.Sheets["PreviousHOD"] || {},
+        );
+
+        let previousHODHTML = "";
+
+        $.each(previousHODData, function (i, p) {
+          previousHODHTML += `
+    <div class="col">
+      <div class="card p-3 bg-info bg-opacity-10 border border-info rounded">
+        <div class="image-container mx-auto">
+          <img src="${getImageWithFallback(p.Image)}" width="150" height="175" onerror="this.src='images/placeholder.jpg'">
+          <div class="hover-text">${p.Area}</div>
+        </div>
+
+        <h5 class="mt-2">${p.Name}</h5>
+
+        ${p.From ? `<p class="mb-1"><strong>From:</strong> ${p.From}</p>` : ""}
+
+        ${p.To ? `<p class="mb-0"><strong>To:</strong> ${p.To}</p>` : ""}
+      </div>
+    </div>
+  `;
+        });
+
+        $("#previousHODContainer").html(previousHODHTML);
+      },
+      error: function (err) {
+        console.error("Excel load error:", err);
+      },
+    });
+  });
+</script>

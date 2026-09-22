@@ -1,0 +1,273 @@
+<style>
+  .vm-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .vm-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .vm-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+
+  .vision-bg {
+    background: linear-gradient(135deg, #0d6efd, #7ab6ff);
+  }
+
+  .mission-bg {
+    background: linear-gradient(135deg, #198754, #7ee2ad);
+  }
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item" style="min-width: 900px">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button fw-bold fs-3"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#panelsStayOpen-collapseOne"
+              aria-expanded="true"
+              aria-controls="panelsStayOpen-collapseOne"
+            >
+              M.Tech. (Transportation Engineering Program)
+            </button>
+          </h2>
+          <div
+            id="panelsStayOpen-collapseOne"
+            class="accordion-collapse collapse show"
+          >
+            <div
+              class="accordion-body bg-gradient"
+              style="background-color: #5ff10a17"
+            >
+              <p>A Postgraduate program in Transportation Engineering.</p>
+              <div id="mtechOutput"></div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="accordion-item" style="min-width: 900px">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button fw-bold fs-3 collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#panelsStayOpen-collapseTwo"
+              aria-expanded="false"
+              aria-controls="panelsStayOpen-collapseTwo"
+            >
+              Ph.D. (Transportation Engineering Program)
+            </button>
+          </h2>
+          <div
+            id="panelsStayOpen-collapseTwo"
+            class="accordion-collapse collapse"
+          >
+            <div
+              class="accordion-body bg-gradient"
+              style="background-color: #3c0af113"
+            >
+              <p>A research-oriented doctoral program.</p>
+              <div id="phdOutput"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="card vm-card shadow mb-4">
+        <div class="card-body vision-bg text-white text-center p-4">
+          <h4>Vision</h4>
+          <hr />
+          <p>
+            To be a knowledge nerve centre in civil engineering education,
+            research, entrepreneurship, and industry outreach services for
+            creating sustainable infrastructure and enhancing the quality of
+            life.
+          </p>
+        </div>
+      </div>
+
+      <div class="card vm-card shadow">
+        <div class="card-body mission-bg text-white text-center p-4">
+          <h4>Mission</h4>
+          <hr />
+          <ul class="text-start">
+            <li>
+              Generate a specialised cadre of civil engineers by imparting
+              quality education and training.
+            </li>
+            <li>
+              Attain international standards in teaching, research, and
+              consultancy with global linkages.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    // =====================================================
+    // LOAD ACADEMIC PROGRAMS EXCEL
+    // =====================================================
+
+    fetch("excels/AcademicPrograms.xlsx")
+      .then((res) => res.arrayBuffer())
+
+      .then((data) => {
+        const workbook = XLSX.read(data, {
+          type: "array",
+        });
+
+        // LOAD MTECH SHEET
+        loadProgramData(workbook, "Mtech", "#mtechOutput");
+
+        // LOAD PHD SHEET
+        loadProgramData(workbook, "Phd", "#phdOutput");
+      })
+
+      .catch((error) => {
+        console.log(error);
+
+        $("#mtechOutput").html(`
+          <div class="alert alert-danger">
+            Unable to load Excel file
+          </div>
+        `);
+
+        $("#phdOutput").html(`
+          <div class="alert alert-danger">
+            Unable to load Excel file
+          </div>
+        `);
+      });
+
+    // =====================================================
+    // MAIN FUNCTION
+    // =====================================================
+
+    function loadProgramData(workbook, sheetName, outputId) {
+      const sheet = workbook.Sheets[sheetName];
+
+      // SHEET NOT FOUND
+      if (!sheet) {
+        $(outputId).html(`
+          <div class="alert alert-danger">
+            Sheet "${sheetName}" not found
+          </div>
+        `);
+
+        return;
+      }
+
+      // READ SHEET
+      let data = XLSX.utils.sheet_to_json(sheet, {
+        header: 1,
+        defval: "",
+      });
+
+      // REMOVE EMPTY ROWS
+      data = data.filter(
+        (row) =>
+          row.length > 0 && row.some((cell) => String(cell).trim() !== ""),
+      );
+
+      let html = "";
+
+      // =====================================================
+      // RANDOM LIGHT COLOR FUNCTION
+      // =====================================================
+
+      function getRandomColor() {
+        const r = Math.floor(Math.random() * 56) + 200;
+        const g = Math.floor(Math.random() * 56) + 200;
+        const b = Math.floor(Math.random() * 56) + 200;
+
+        return `rgb(${r}, ${g}, ${b})`;
+      }
+
+      // =====================================================
+      // DISPLAY DATA
+      // =====================================================
+
+      data.forEach((row) => {
+        const heading = row[0] || "-";
+
+        const content = row[1] || "-";
+
+        // RANDOM CARD COLOR
+        const bgColor = getRandomColor();
+
+        html += `
+
+    <div 
+      class="card shadow mb-3"
+      style="
+        background-color:${bgColor};
+        border-radius:12px;
+        "
+    >
+
+      <div class="card-body p-3">
+
+        <h6 class="fw-bold text-decoration-underline mb-2">
+          ${heading}
+        </h6>
+
+        <div 
+          style="
+            white-space:${
+              heading.trim() === "Program Outcomes" ||
+              heading.trim() === "Eligibility Criteria"
+                ? "pre-line"
+                : "normal"
+            };
+
+            line-height:1.6;
+            margin:0;
+            padding:0;
+          "
+        >
+          ${formatLinks(content)}
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+      });
+
+      $(outputId).html(html);
+    }
+
+    // =====================================================
+    // FORMAT LINKS
+    // =====================================================
+
+    function formatLinks(text) {
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+      return String(text).replace(urlRegex, function (url) {
+        return `
+          <a href="${url}" target="_blank">
+            ${url}
+          </a>
+        `;
+      });
+    }
+  });
+</script>
