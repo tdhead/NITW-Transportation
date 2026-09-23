@@ -53,30 +53,30 @@
     font-family: Arial, sans-serif;
   }
   .faculty-main-content {
-  display: grid;
-  grid-template-columns: 32% 36% 32%;
-}
+    display: grid;
+    grid-template-columns: 32% 36% 32%;
+  }
 
-.full-width-bio {
-  width: 100%;
-  margin-bottom: 0;
-  border-radius: 0;
-}
+  .full-width-bio {
+    width: 100%;
+    margin-bottom: 0;
+    border-radius: 0;
+  }
 
   /* =========================================
    LEFT PANEL
 ========================================= */
 
   .faculty-left {
-  background: #122e4d;
-  padding: 32px;
-  color: white;
-  border-radius:12px;
+    background: #122e4d;
+    padding: 32px;
+    color: white;
+    border-radius: 12px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   /* IMAGE */
 
@@ -455,6 +455,23 @@
       height: 250px;
     }
   }
+
+  .profile-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #00b6e2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+
+  .profile-btn:hover {
+    background: #c20315;
+    color: #fff;
+  }
 </style>
 <!-- ================= MAIN TABS ================= -->
 <ul class="nav nav-pills-rounded nav-justified mb-3" style="min-width: 1000px">
@@ -798,10 +815,11 @@
               </div>
               <div class="col-md-8">
                 <h5>${f.Name}</h5>
-                <h6 class="text-muted">${f.Designation}</h6>
-                <p>📞 ${f.Mobile}</p>
-                <p>✉ ${f.Mail}</p>
-                <p>${f.Research}</p>
+                <h6 class="text-muted">${f.University}</h6>
+                <p>${f.Association}</p>
+                <a href="${f.Profile}" target="_blank" class="profile-btn">
+    View Profile
+</a>
               </div>
             </div>
           </div>`;
