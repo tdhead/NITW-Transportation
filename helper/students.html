@@ -1579,9 +1579,9 @@
 
         pageData.forEach((s) => {
           html += `
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-3 mb-3 d-flex align-items-stretch">
 
-                        <div class="card text-center p-2 shadow-sm">
+                        <div class="card text-center p-2 shadow-sm w-100 d-flex flex-column">
 
                             <div class="img-hover-box">
 
@@ -1591,7 +1591,7 @@
                                 >
 
                                 <div class="hover-text">
-                                    ${s["Research Area"] || "-"}
+                                    ${escapeHtml(s["Research Area"] || "-")}
                                 </div>
 
                             </div>
@@ -1601,15 +1601,19 @@
                             </h6>
 
                             <small>
-                                ${s["Reg No."] || "-"}
+                               <strong>Year Joined:</strong> ${s["Year Joined"] || "-"}
                             </small>
 
-                            <br>
+                            <small>
+                                ${s["Reg No."] || "-"}
+                            </small>
+ 
+                            <br> 
 
                             <small>
                                 📞 ${s["Phone Number"] || "-"}
                             </small>
-
+  
                             <br>
 
                             <small>
@@ -1618,13 +1622,23 @@
 
                             <br>
 
-                        
-                            <h6 class="mt-2">
-                                👨‍🏫 <strong>Supervisor and Co-Supervisor:</strong> ${s["Supervisor and Co-Supervisor"] || "-"}
-                            </h6>
+                            <h8 class="mt-2">
+                              👨‍🏫 <strong>Supervisor:</strong> ${escapeHtml(s["Supervisor"] || "-")}
+                            </h8>
 
-                            <br>
-                            <span class="${getBadgeColor(
+                             ${
+                                s["Co Supervisor"] &&
+                                String(s["Co Supervisor"]).trim() !== ""
+                                    ? `
+                                      <h8 class="mt-1">
+                                         👨‍🏫 <strong>Co-Supervisor:</strong>
+                                         ${escapeHtml(s["Co Supervisor"])}
+                                      </h8>
+                                    `
+                                    : ""
+                              }
+                        
+                            <span class="mt-auto ${getBadgeColor(
                               s["Study Mode"] || s["Mode of Study"],
                             )}">
                                 ${
@@ -1717,10 +1731,6 @@
                       <h6 class="mtech-alumni-name">
                           Name: ${escapeHtml(name)}
                       </h6>
-
-                      <span class="text-muted mb-2">
-                          Batch: ${escapeHtml(year)}
-                      </span>
 
                       <button
                           class="btn btn-outline-primary btn-sm rs-details-btn"
