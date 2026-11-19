@@ -1,23 +1,14 @@
 <style>
-  
-/* Background for the alumni content area */
-#da-container {
-  padding: 18px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #adf19f3b, #f05c5c25);
-  border: 1px solid #96ea90;
-  transition: background 0.3s ease;
-}
-
-/* Keep the background neat on mobile */
-@media (max-width: 600px) {
+  /* Background for the alumni content area */
   #da-container {
-    padding: 12px;
-    border-radius: 10px;
+    padding: 18px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #adf19f3b, #f05c5c25);
+    border: 1px solid #96ea90;
+    transition: background 0.3s ease;
   }
-}
 
-  /* ---------- Distinguished Alumni ---------- */
+  /* Main wrapper */
   #da-wrapper {
     width: 900px;
     max-width: 100%;
@@ -25,45 +16,11 @@
     font-family: "Segoe UI", Arial, sans-serif;
   }
 
-  .da-filters {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 21px;
-  }
-
-  /* Filter button CSS — unchanged */
-  .da-filter-btn {
-    border: 0;
-    height: 36px;
-    font-size: 14px;
-    background-color: #00b6e2;
-    color: #000;
-    cursor: pointer;
-    position: relative;
-  }
-
-  .da-filter-btn.active {
-    background-color: #c20315;
-    color: #fff;
-  }
-
-  .da-filter-btn.active::after {
-    content: "";
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 6px;
-    border-style: solid;
-    border-color: #c20315 transparent transparent transparent;
-  }
-
   /* Alumni grid */
   .da-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
-    margin-top: 28px;
     align-items: stretch;
   }
 
@@ -88,36 +45,22 @@
       background 0.3s ease;
   }
 
-  
-.da-card::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #ade200, #c20315);
-  transform: scaleY(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-}
+  /* Bottom hover animation */
+  .da-card::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ade200, #c20315);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
 
-.da-card:hover::before {
-  transform: scaleX(1);
-}
-
-.da-card::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(180deg, #00b6e2, #c20315);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.3s ease;
-}
+  .da-card:hover::before {
+    transform: scaleX(1);
+  }
 
   .da-card:hover {
     transform: translateY(-7px);
@@ -125,7 +68,6 @@
     box-shadow: 0 12px 28px rgba(24, 75, 90, 0.15);
   }
 
-  
   /* Alumni photograph */
   .da-photo {
     width: 127px;
@@ -222,10 +164,6 @@
       gap: 20px;
     }
 
-    .da-filters {
-      gap: 16px;
-    }
-
     .da-card {
       padding: 20px 14px 16px;
     }
@@ -237,15 +175,14 @@
       width: 100%;
     }
 
-    .da-filters {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+    #da-container {
+      padding: 12px;
+      border-radius: 10px;
     }
 
     .da-grid {
       grid-template-columns: minmax(0, 1fr);
       gap: 16px;
-      margin-top: 24px;
     }
 
     .da-card {
@@ -269,10 +206,6 @@
 
   /* Small mobile devices */
   @media (max-width: 360px) {
-    .da-filters {
-      gap: 8px;
-    }
-
     .da-card {
       padding: 16px 12px;
     }
@@ -282,6 +215,7 @@
   @media (prefers-reduced-motion: reduce) {
     .da-card,
     .da-card::before,
+    .da-card::after,
     .da-photo,
     .da-name,
     .da-batch svg {
@@ -295,284 +229,225 @@
   }
 </style>
 
-
 <div id="da-wrapper">
-  <div class="da-filters" id="da-filters"></div>
   <p id="da-message" class="da-message">Loading distinguished alumni...</p>
+
   <div id="da-container" class="da-grid"></div>
 </div>
 
 <script>
-$(document).ready(function () {
-
+  $(document).ready(function () {
+    // File paths
     const EXCEL_FILE = "excels/D_Alumini.xlsx";
     const PHOTO_FOLDER = "images/Distinguished_Alumini/";
     const PLACEHOLDER = "images/placeholder.jpg";
 
     const $container = $("#da-container");
     const $message = $("#da-message");
-    const $filters = $("#da-filters");
 
     let allAlumni = [];
-    let activeFilter = "All";
 
     // Get photo path
     function getPhotoPath(photo) {
-        const value = String(photo ?? "").trim();
+      const value = String(photo ?? "").trim();
 
-        if (!value) return PLACEHOLDER;
+      if (!value) {
+        return PLACEHOLDER;
+      }
 
-        if (/^(https?:\/\/|data:image\/)/i.test(value)) {
-            return value;
-        }
+      // If the photo is already a complete URL
+      if (/^(https?:\/\/|data:image\/)/i.test(value)) {
+        return value;
+      }
 
-        const fileName = value.split(/[\\/]/).pop();
-        return PHOTO_FOLDER + encodeURIComponent(fileName);
+      // Extract filename
+      const fileName = value.split(/[\\/]/).pop();
+
+      return PHOTO_FOLDER + encodeURIComponent(fileName);
     }
 
     // Clean batch text
     function cleanBatch(batch) {
-        return String(batch ?? "")
-            .replace(/\s*-\s*/g, " - ")
-            .replace(/\s+/g, " ")
-            .trim();
-    }
-
-    // Identify program
-    function getProgram(batch) {
-        const b = batch.toLowerCase();
-
-        if (b.startsWith("phd") || b.startsWith("ph.d")) {
-            return "Ph.D";
-        }
-
-        if (b.startsWith("m.tech") || b.startsWith("mtech")) {
-            return "M.Tech";
-        }
-
-        return "Other";
+      return String(batch ?? "")
+        .replace(/\s*-\s*/g, " - ")
+        .replace(/\s+/g, " ")
+        .trim();
     }
 
     // Find Excel column by keyword
     function pick(row, keyword) {
-        const key = Object.keys(row).find(function (k) {
-            return k.trim().toLowerCase().includes(keyword);
-        });
+      const key = Object.keys(row).find(function (k) {
+        return k.trim().toLowerCase().includes(keyword);
+      });
 
-        return key ? row[key] : "";
+      return key ? row[key] : "";
     }
 
     // Display messages
     function showMessage(text, isError) {
-        $message
-            .text(text)
-            .css("color", isError ? "#b00020" : "")
-            .toggle(!!text);
+      $message
+        .text(text)
+        .css("color", isError ? "#b00020" : "")
+        .toggle(!!text);
     }
 
-    // Render program filter buttons
-    function renderFilters() {
-        $filters.empty();
-
-        const programs = ["All"];
-
-        ["Ph.D", "M.Tech", "Other"].forEach(function (program) {
-            if (allAlumni.some(function (alumni) {
-                return alumni.program === program;
-            })) {
-                programs.push(program);
-            }
-        });
-
-        if (programs.length <= 2) return;
-
-        programs.forEach(function (program) {
-            const $button = $("<button>", {
-                type: "button",
-                class: "da-filter-btn" +
-                    (program === activeFilter ? " active" : ""),
-                text: program
-            });
-
-            $button.on("click", function () {
-                activeFilter = program;
-                renderFilters();
-                renderCards();
-            });
-
-            $filters.append($button);
-        });
-    }
-
-    // Render alumni cards
+    // Render all distinguished alumni cards
     function renderCards() {
-        $container.empty();
+      $container.empty();
 
-        const list = allAlumni.filter(function (alumni) {
-            return activeFilter === "All" ||
-                alumni.program === activeFilter;
+      // Display all alumni without category filtering
+      const list = allAlumni;
+
+      if (!list.length) {
+        showMessage("No alumni found.", false);
+        return;
+      }
+
+      showMessage("", false);
+
+      list.forEach(function (alumni) {
+        const $card = $("<div>", {
+          class: "da-card",
         });
 
-        if (!list.length) {
-            showMessage("No alumni found.", false);
-            return;
+        // Alumni photograph
+        const $img = $("<img>", {
+          class: "da-photo",
+          alt: alumni.name,
+        });
+
+        $img.attr("src", getPhotoPath(alumni.photo)).on("error", function () {
+          $(this).off("error").attr("src", PLACEHOLDER);
+        });
+
+        $card.append($img);
+
+        // Alumni name
+        $card.append(
+          $("<p>", {
+            class: "da-name",
+            text: alumni.name,
+          }),
+        );
+
+        // Organization
+        $card.append(
+          $("<p>", {
+            class: "da-org",
+            text: alumni.org,
+          }),
+        );
+
+        // Batch information
+        if (alumni.batch) {
+          const $batch = $("<div>", {
+            class: "da-batch",
+          });
+
+          const ns = "http://www.w3.org/2000/svg";
+
+          const $svg = $(document.createElementNS(ns, "svg")).attr(
+            "viewBox",
+            "0 0 24 24",
+          );
+
+          const $path = $(document.createElementNS(ns, "path")).attr(
+            "d",
+            "M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm-6 9.2v4L12 20l6-3.8v-4L12 15.5 6 12.2z",
+          );
+
+          $svg.append($path);
+
+          $batch.append($svg).append($("<span>").text(alumni.batch));
+
+          $card.append($batch);
         }
 
-        showMessage("", false);
-
-        list.forEach(function (alumni) {
-            const $card = $("<div>", {
-                class: "da-card"
-            });
-
-            const $img = $("<img>", {
-                class: "da-photo",
-                alt: alumni.name
-            });
-
-            $img
-                .attr("src", getPhotoPath(alumni.photo))
-                .on("error", function () {
-                    $(this).off("error").attr("src", PLACEHOLDER);
-                });
-
-            $card.append($img);
-
-            $card.append(
-                $("<p>", {
-                    class: "da-name",
-                    text: alumni.name
-                })
-            );
-
-            $card.append(
-                $("<p>", {
-                    class: "da-org",
-                    text: alumni.org
-                })
-            );
-
-            if (alumni.batch) {
-                const $batch = $("<div>", {
-                    class: "da-batch"
-                });
-
-                const ns = "http://www.w3.org/2000/svg";
-
-                const $svg = $(document.createElementNS(ns, "svg"))
-                    .attr("viewBox", "0 0 24 24");
-
-                const $path = $(document.createElementNS(ns, "path"))
-                    .attr(
-                        "d",
-                        "M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm-6 9.2v4L12 20l6-3.8v-4L12 15.5 6 12.2z"
-                    );
-
-                $svg.append($path);
-
-                $batch
-                    .append($svg)
-                    .append(
-                        $("<span>").text(alumni.batch)
-                    );
-
-                $card.append($batch);
-            }
-
-            $container.append($card);
-        });
+        // Append card to container
+        $container.append($card);
+      });
     }
 
     // Load alumni data from Excel
     function loadAlumni() {
-        if (typeof XLSX === "undefined") {
-            showMessage(
-                "Excel library is missing. Check the SheetJS script in index.html.",
-                true
-            );
-            return;
-        }
+      if (typeof XLSX === "undefined") {
+        showMessage(
+          "Excel library is missing. Check the SheetJS script in index.html.",
+          true,
+        );
 
-        $.ajax({
-            url: EXCEL_FILE,
-            method: "GET",
-            dataType: "binary",
-            xhrFields: {
-                responseType: "arraybuffer"
-            },
-            cache: false,
+        return;
+      }
 
-            success: function (buffer) {
-                try {
-                    const workbook = XLSX.read(buffer, {
-                        type: "array"
-                    });
+      fetch(EXCEL_FILE)
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("HTTP error: " + response.status);
+          }
 
-                    const sheet =
-                        workbook.Sheets[workbook.SheetNames[0]];
+          return response.arrayBuffer();
+        })
+        .then(function (buffer) {
+          try {
+            const workbook = XLSX.read(buffer, {
+              type: "array",
+            });
 
-                    const rows = XLSX.utils.sheet_to_json(sheet, {
-                        defval: ""
-                    });
+            const sheet = workbook.Sheets[workbook.SheetNames[0]];
 
-                    allAlumni = rows
-                        .map(function (row) {
-                            const batch = cleanBatch(
-                                pick(row, "batch")
-                            );
+            const rows = XLSX.utils.sheet_to_json(sheet, {
+              defval: "",
+            });
 
-                            return {
-                                name: String(
-                                    pick(row, "name") ?? ""
-                                ).trim(),
+            // Process Excel records
+            allAlumni = rows
 
-                                batch: batch,
-                                program: getProgram(batch),
+              .map(function (row) {
+                const batch = cleanBatch(pick(row, "batch"));
 
-                                org: String(
-                                    pick(row, "organization") ?? ""
-                                ).trim(),
+                return {
+                  name: String(pick(row, "name") ?? "").trim(),
 
-                                photo: pick(row, "photo")
-                            };
-                        })
-                        .filter(function (alumni) {
-                            return alumni.name;
-                        });
+                  batch: batch,
 
-                    if (!allAlumni.length) {
-                        showMessage(
-                            "No alumni data found in the Excel file.",
-                            true
-                        );
-                        return;
-                    }
+                  org: String(pick(row, "organization") ?? "").trim(),
 
-                    renderFilters();
-                    renderCards();
+                  photo: pick(row, "photo"),
+                };
+              })
 
-                } catch (error) {
-                    console.error(error);
-                    showMessage(
-                        "Unable to process the Excel file.",
-                        true
-                    );
-                }
-            },
+              .filter(function (alumni) {
+                return alumni.name;
+              });
 
-            error: function (xhr, status, error) {
-                console.error(status, error);
+            if (!allAlumni.length) {
+              showMessage("No alumni data found in the Excel file.", true);
 
-                showMessage(
-                    "Could not load " + EXCEL_FILE +
-                    " (" + (xhr.status || "network error") + ").",
-                    true
-                );
+              return;
             }
+
+            // Display all alumni together
+            renderCards();
+          } catch (error) {
+            console.error(error);
+
+            showMessage("Unable to process the Excel file.", true);
+          }
+        })
+
+        .catch(function (error) {
+          console.error(error);
+
+          showMessage(
+            "Could not load " +
+              EXCEL_FILE +
+              ". Please check the file path and server response.",
+            true,
+          );
         });
     }
 
+    // Initialize
     loadAlumni();
-
-});
+  });
 </script>
